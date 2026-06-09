@@ -52,3 +52,26 @@ print(f"Nulos restantes: {df['TotalCharges'].isnull().sum()}")
 # Eliminar customerID (no aporta al modelo)
 df = df.drop(columns=['customerID'])
 print(f" customerID eliminado. Shape actual: {df.shape}")
+
+
+#-------------------------------------------
+# Encoding de columnas
+# -----------------------------------------
+# Encoding
+cols_binarias = ['Partner', 'Dependents', 'PhoneService', 'PaperlessBilling',
+                 'Churn', 'gender']
+
+for col in cols_binarias:
+    df[col] = df[col].map({'Yes': 1, 'No': 0, 'Female': 0, 'Male': 1})
+
+# Columnas con múltiples categorías → LabelEncoder
+cols_multi = ['MultipleLines', 'InternetService', 'OnlineSecurity',
+              'OnlineBackup', 'DeviceProtection', 'TechSupport',
+              'StreamingTV', 'StreamingMovies', 'Contract', 'PaymentMethod']
+
+le = LabelEncoder()
+for col in cols_multi:
+    df[col] = le.fit_transform(df[col])
+
+print("Encoding aplicado")
+print(df.dtypes)
