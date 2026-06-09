@@ -89,3 +89,13 @@ df[cols_escalar] = scaler.fit_transform(df[cols_escalar])
 
 print(" Escalado aplicado a:", cols_escalar)
 df[cols_escalar].describe().round(3)
+
+# --------------------------------------
+# Guardar y descargar Dataset limpio
+# --------------------------------------
+
+from google.colab import files
+
+df.to_csv("telco_limpio.csv", index=False)
+print(f"Dataset limpio guardado: {df.shape[0]} filas x {df.shape[1]} columnas")
+files.download("telco_limpio.csv")
