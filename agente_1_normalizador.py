@@ -45,3 +45,10 @@ mediana = df['TotalCharges'].median()
 df['TotalCharges'] = df['TotalCharges'].fillna(mediana)
 print(f"TotalCharges imputado con mediana: {mediana}")
 print(f"Nulos restantes: {df['TotalCharges'].isnull().sum()}")
+
+#-------------------------------------------
+# Eliminar columna irrelevante
+# -----------------------------------------
+# Eliminar customerID (no aporta al modelo)
+df = df.drop(columns=['customerID'])
+print(f" customerID eliminado. Shape actual: {df.shape}")
