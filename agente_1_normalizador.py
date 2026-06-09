@@ -75,3 +75,17 @@ for col in cols_multi:
 
 print("Encoding aplicado")
 print(df.dtypes)
+
+#-------------------------------------------
+# ESCALADO DE DATOS NUMÉRICOS
+# -----------------------------------------
+
+# Escalado (StandardScaler) sobre columnas numéricas continuas
+# Se aplica DESPUÉS del encoding
+cols_escalar = ['tenure', 'MonthlyCharges', 'TotalCharges']
+
+scaler = StandardScaler()
+df[cols_escalar] = scaler.fit_transform(df[cols_escalar])
+
+print(" Escalado aplicado a:", cols_escalar)
+df[cols_escalar].describe().round(3)
