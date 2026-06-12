@@ -1,0 +1,79 @@
+REPORTE EJECUTIVO — TELCO CUSTOMER CHURN
+============================================================
+
+**Reporte Ejecutivo: Predicción de *Churn* en Telecomunicaciones**
+*Análisis de Modelos de Machine Learning para la Retención de Clientes*
+
+---
+
+### **1. Resumen General del Problema**
+El *churn* (abandono de clientes) en el sector de telecomunicaciones representa un desafío crítico, con un impacto directo en los ingresos y la sostenibilidad del negocio. En este análisis, se evaluaron dos modelos de *machine learning* para predecir la probabilidad de que un cliente abandone el servicio:
+- **Random Forest**
+- **Regresión Logística**
+
+El objetivo es identificar el modelo con mayor capacidad predictiva para priorizar acciones de retención (ej.: ofertas personalizadas, soporte proactivo) y reducir costos asociados al *churn*.
+
+---
+
+### **2. Modelos Evaluados y Métricas Principales**
+
+#### **Métricas Clave Comparativas**
+| **Modelo**            | **AUC-ROC** | **AUC-ROC (CV, k=5)** | **Precisión (Clase 1)** | **Recall (Clase 1)** | **F1-Score (Clase 1)** | **Exactitud** |
+|-----------------------|-------------|-----------------------|-------------------------|----------------------|------------------------|---------------|
+| **Random Forest**     | 0.9225      | 0.9153                | 0.83                    | 0.87                 | 0.85                   | 0.85          |
+| **Regresión Logística** | 0.8771    | 0.8646                | 0.76                    | 0.86                 | 0.81                   | 0.79          |
+
+**Notas:**
+- **AUC-ROC**: Mide la capacidad del modelo para distinguir entre clientes que abandonan (*churn*) y los que no. Valores cercanos a 1 indican mejor desempeño.
+- **Recall (Sensibilidad)**: Prioriza la identificación correcta de clientes en riesgo (Clase 1). El Random Forest supera a la Regresión Logística en un 1%.
+- **F1-Score**: Balance entre precisión y recall. El Random Forest obtiene un 4% más que la Regresión Logística.
+
+---
+
+### **3. Modelo Ganador y Justificación Basada en Datos**
+**Modelo seleccionado:** **Random Forest**
+**Razón principal:**
+- **Superioridad en métricas clave**:
+  - **AUC-ROC (0.9225 vs. 0.8771)**: Indica una mejor capacidad discriminativa, especialmente en umbrales críticos de decisión.
+  - **Validación cruzada (0.9153 vs. 0.8646)**: Confirma la robustez del modelo ante variaciones en los datos de entrenamiento.
+  - **Recall (0.87)**: Prioriza la detección de clientes en riesgo, esencial para estrategias de retención.
+- **Manejo de datos complejos**: El Random Forest es menos sensible a datos desbalanceados y captura relaciones no lineales, comunes en datasets de telecomunicaciones.
+
+---
+
+### **4. Interpretación del AUC-ROC y Validación Cruzada**
+#### **AUC-ROC (0.9225 para Random Forest)**
+- **Interpretación**: El modelo tiene un 92.25% de probabilidad de clasificar correctamente un par aleatorio de clientes (uno que abandona y otro que no).
+- **Implicación**: Alto poder discriminativo, reduciendo falsos positivos/negativos en la identificación de clientes en riesgo.
+
+#### **Validación Cruzada (k=5, AUC medio = 0.9153)**
+- **Interpretación**: La consistencia del AUC en los 5 *folds* (0.9153) valida que el modelo no está sobreajustado (*overfitting*) y generaliza bien a datos no vistos.
+- **Implicación**: El Random Forest es confiable para implementación en producción.
+
+---
+
+### **5. Conclusiones y Recomendaciones para la Empresa**
+
+#### **Conclusiones**
+1. **El Random Forest es la mejor opción** para predecir *churn*, superando a la Regresión Logística en todas las métricas críticas.
+2. **Priorización de clientes en riesgo**: Con un *recall* del 87%, el modelo identifica correctamente al 87% de los clientes que abandonarán, permitiendo intervenciones oportunas.
+3. **Impacto económico**: Reducir el *churn* en un 10% (ej.: con campañas dirigidas) podría generar ahorros significativos, considerando el *lifetime value* (LTV) de los clientes.
+
+#### **Recomendaciones**
+1. **Implementación del modelo**:
+   - Desplegar el Random Forest en sistemas de CRM para priorizar clientes con alta probabilidad de *churn*.
+   - Integrar alertas automáticas para el equipo de retención (ej.: descuentos, soporte prioritario).
+
+2. **Acciones proactivas**:
+   - **Segmentación**: Usar las variables más importantes del modelo (ej.: duración del contrato, uso de datos, soporte técnico) para personalizar estrategias.
+   - **Pruebas A/B**: Evaluar el impacto de ofertas específicas en grupos de alto riesgo identificados por el modelo.
+
+3. **Monitoreo continuo**:
+   - Reentrenar el modelo cada 3-6 meses con datos actualizados para adaptarse a cambios en el comportamiento del cliente.
+   - Monitorear métricas como *precision* y *recall* en producción para ajustar umbrales de decisión.
+
+4. **Enfoque en datos**:
+   - Ampliar el dataset con variables adicionales (ej.: satisfacción del cliente, competencia) para mejorar aún más el AUC-ROC.
+
+---
+**Nota final**: El Random Forest no solo ofrece un rendimiento superior, sino que también proporciona interpretabilidad (ej.: importancia de variables), clave para alinear las estrategias de negocio con los insights del modelo.
